@@ -21,7 +21,15 @@ export default {
 		}
 
 		const apiUrl = `https://thunderstore.io/api/v1/package-metrics/${namespace}/${packageName}/`;
-		const res = await fetch(apiUrl);
+		const res = await fetch(apiUrl, {
+			cf: {
+				cacheTtlByStatus: {
+					'200': 600,
+					'404': 300
+				},
+				cacheEverything: true,
+			}
+		});
 
 		if (!res.ok) {
 			const svg = makeBadge('404', 'Package not found', '#cc3011');
