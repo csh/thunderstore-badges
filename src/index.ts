@@ -31,7 +31,7 @@ export default {
 				headers: {
 					'Content-Type': 'image/svg+xml',
 					'Cache-Control': 'public, max-age=300',
-					'ETag': `${type}-${namespace}-${packageName}`
+					'ETag': `"${type}-${namespace}-${packageName}"`
 				},
 			});
 		}
@@ -46,7 +46,7 @@ export default {
 			headers: {
 				'Content-Type': 'image/svg+xml',
 				'Cache-Control': 'public, max-age=600',
-				'ETag': `${type}-${namespace}-${packageName}`
+				'ETag': `"${type}-${namespace}-${packageName}"`
 			},
 		});
 	},
