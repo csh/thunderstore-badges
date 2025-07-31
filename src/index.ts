@@ -5,7 +5,7 @@ interface ThunderstoreApiResponse {
 }
 
 export default {
-	async fetch(request: Request): Promise<Response> {
+	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
 		const url = new URL(request.url);
 		const [_, namespace, packageName, type] = url.pathname.split('/');
 
@@ -21,15 +21,26 @@ export default {
 		}
 
 		const apiUrl = `https://thunderstore.io/api/v1/package-metrics/${namespace}/${packageName}/`;
-		const res = await fetch(apiUrl, {
-			cf: {
-				cacheTtlByStatus: {
-					'200': 600,
-					'404': 300
+		const cache = caches.default;
+
+		let res = await cache.match(apiUrl);
+		if (!res) {
+			console.log("Cache miss", {
+				namespace: namespace,
+				package: packageName
+			});
+
+			res = await fetch(apiUrl, {
+				cf: {
+					cacheTtlByStatus: {
+						'200': 600,
+						'404': 300,
+					},
+					cacheEverything: true,
 				},
-				cacheEverything: true,
-			}
-		});
+			});
+			ctx.waitUntil(cache.put(apiUrl, res.clone()));
+		}
 
 		if (!res.ok) {
 			const svg = makeBadge('404', 'Package not found', '#cc3011');
@@ -39,13 +50,12 @@ export default {
 				headers: {
 					'Content-Type': 'image/svg+xml',
 					'Cache-Control': 'public, max-age=300',
-					'ETag': `"${type}-${namespace}-${packageName}"`
+					ETag: `"${type}-${namespace}-${packageName}"`,
 				},
 			});
 		}
 
 		const data = await res.json<ThunderstoreApiResponse>();
-
 		const label = type;
 		const message = type === 'version' ? data.latest_version ?? 'unknown' : formatNumber(data.downloads ?? 0);
 
@@ -54,7 +64,7 @@ export default {
 			headers: {
 				'Content-Type': 'image/svg+xml',
 				'Cache-Control': 'public, max-age=600',
-				'ETag': `"${type}-${namespace}-${packageName}"`
+				ETag: `"${type}-${namespace}-${packageName}"`,
 			},
 		});
 	},
