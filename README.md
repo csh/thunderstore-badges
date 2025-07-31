@@ -26,3 +26,4 @@ Quick implementation in response to [this](https://discord.com/channels/80912888
 ![Downloads](https://<your domain>/<namespace>/<packageName>/downloads)
 ```
 
+You can also set the badge style via the `style` query parameter, see the documentation [here](https://shields.io/badges/static-badge) for valid styles.
