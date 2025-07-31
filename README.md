@@ -11,7 +11,7 @@ Quick implementation in response to [this](https://discord.com/channels/80912888
 
 #### Latest Version
 
-![Version](https://thunderstore-badges.smrkn.workers.dev/smrkn/LethalCompanyHighlights/version)
+![Version](https://thunderstore.smrkn.com/smrkn/LethalCompanyHighlights/version)
 
 ```
 ![Version](https://<your domain>/<namespace>/<packageName>/version)
@@ -19,7 +19,7 @@ Quick implementation in response to [this](https://discord.com/channels/80912888
 
 #### Download Count
 
-![Downloads](https://thunderstore-badges.smrkn.workers.dev/smrkn/LethalCompanyHighlights/downloads)
+![Downloads](https://thunderstore.smrkn.com/smrkn/LethalCompanyHighlights/downloads)
 
 
 ```
