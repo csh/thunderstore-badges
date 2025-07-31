@@ -1,6 +1,6 @@
 # thunderstore-badges
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/csh/thunderstore-badges/tree/main/)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/csh/thunderstore-badges)
 
 
 Simple Cloudflare Worker function for rendering shields.io style badges for Thunderstore packages.
